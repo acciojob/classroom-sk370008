@@ -22,7 +22,7 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
-    //http://localhost/8080
+    //http://localhost/8080   (port is changing in this question)
 
     @PostMapping("/add-student")
     public ResponseEntity<String> addStudent(@RequestBody Student student){
