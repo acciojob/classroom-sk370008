@@ -2,9 +2,7 @@ package com.driver;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class StudentRepository {
@@ -44,6 +42,48 @@ public class StudentRepository {
             return studentHashMap.get(name);
         }
         return null;
+    }
+
+    public Teacher getTeacherByName(String name){
+        if (teacherHashMap.containsKey(name)){
+            return teacherHashMap.get(name);
+        }
+        return null;
+    }
+
+    public List<String> getStudentsByTeacherName(String name){
+        List<String> students = new ArrayList<>();
+        if (teacherStudentHashMap.containsKey(name)){
+            students = teacherStudentHashMap.get(name);
+            return students;
+        }
+        return null;
+    }
+
+    public List<String> getAllStudents(){
+        List allStudents = new ArrayList<>();
+        for(String name:studentHashMap.keySet()){
+            allStudents.add(name);
+        }
+        return allStudents;
+    }
+
+    public void deleteTeacherByName(String name){
+        List<String> studentList = new ArrayList<>();
+        if (teacherStudentHashMap.containsKey(name)){
+            studentList = teacherStudentHashMap.get(name);
+            for (String student :studentList){
+                if(studentHashMap.containsKey(student)){
+                    studentHashMap.remove(student);
+                }
+            }
+        }
+
+        if (teacherHashMap.containsKey(name)){
+            teacherHashMap.remove(name);
+        }
+        teacherStudentHashMap.remove(name);
+
     }
 
 }
